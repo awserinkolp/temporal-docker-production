@@ -22,6 +22,8 @@ services:
       - MYSQL_PWD=root
       - MYSQL_SEEDS=mysql
       - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
+      - NUM_HISTORY_SHARDS=1024
+      - LOG_LEVEL=info
     image: temporalio/server:${TEMPORAL_VERSION}
     networks:
       - temporal-network

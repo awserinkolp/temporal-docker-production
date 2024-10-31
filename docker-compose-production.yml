@@ -28,7 +28,7 @@ services:
       - TEMPORAL_UI_VERSION=2.31.2
       - NUM_HISTORY_SHARDS=1024
       - LOG_LEVEL=info
-    image: temporalio/server:
+    image: temporalio/server:1.24.3.0
     networks:
       - temporal-network
     ports:

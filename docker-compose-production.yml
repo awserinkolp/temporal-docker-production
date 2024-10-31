@@ -4,7 +4,7 @@ services:
     container_name: temporal-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-    image: mysql:${MYSQL_VERSION}
+    image: mysql:8
     networks:
       - temporal-network
     ports:
@@ -22,9 +22,13 @@ services:
       - MYSQL_PWD=root
       - MYSQL_SEEDS=mysql
       - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
+      - MYSQL_VERSION=8
+      - TEMPORAL_VERSION=1.24.3.0
+      - TEMPORAL_ADMINTOOLS_VERSION=1.25.1-tctl-1.18.1-cli-1.1.1
+      - TEMPORAL_UI_VERSION=2.31.2
       - NUM_HISTORY_SHARDS=1024
       - LOG_LEVEL=info
-    image: temporalio/server:${TEMPORAL_VERSION}
+    image: temporalio/server:
     networks:
       - temporal-network
     ports:
@@ -38,7 +42,7 @@ services:
     environment:
       - TEMPORAL_ADDRESS=temporal:7233
       - TEMPORAL_CLI_ADDRESS=temporal:7233
-    image: temporalio/admin-tools:${TEMPORAL_ADMINTOOLS_VERSION}
+    image: temporalio/admin-tools:1.25.1-tctl-1.18.1-cli-1.1.1
     networks:
       - temporal-network
     stdin_open: true
@@ -50,7 +54,7 @@ services:
     environment:
       - TEMPORAL_ADDRESS=temporal:7233
       - TEMPORAL_CORS_ORIGINS=http://localhost:3000
-    image: temporalio/ui:${TEMPORAL_UI_VERSION}
+    image: temporalio/ui:2.31.2
     networks:
       - temporal-network
     ports:
